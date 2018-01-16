@@ -1,0 +1,24 @@
+{
+  "name": "munchers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "serve": "^6.4.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "serve ./public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asalga/munchers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asalga/munchers/issues"
+  },
+  "homepage": "https://github.com/asalga/munchers#readme"
+}
