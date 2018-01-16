@@ -25,6 +25,10 @@ export default class SpriteSheet {
         ctx.drawImage(this.tiles.get(name), x, y);
     }
 
+    drawTile(name, ctx, x, y){
+    	this.draw(name, ctx, x * this.tileWidth, y * this.tileHeight);
+    }
+
     // drawTile(ctx) {
     // ctx.drawImage(this.img,
     // 0, 0, this.width, this.height,
