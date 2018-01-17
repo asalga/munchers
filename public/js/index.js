@@ -4,13 +4,11 @@ const TileWidth = 16;
 const TileHeight = 16;
 
 import SpriteSheet from './SpriteSheet.js';
-import { loadImage } from './loaders.js';
+import { loadImage, loadJSON } from './loaders.js';
 
 let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
 
-ctx.fillStyle = 'rgba(0, 0, 0, 255)';
-ctx.fillRect(0, 0, cvs.width, cvs.height);
 
 loadImage('/images/tiles.png')
     .then(img => {
@@ -21,12 +19,19 @@ loadImage('/images/tiles.png')
             tileHeight: TileHeight
         });
 
-        // sprites.define('top-left-pink', 0, 0);
-        sprites.define('mid-mid-pink', 1, 1);
+        sprites.define('mid-mid-blue', 4, 4);
 
-        for (let x = 0; x < 10; ++x) {
-            for (let y = 0; y < 10; ++y) {
-                sprites.drawTile('mid-mid-pink', ctx, x, y);
-            }
-        }
+        // rename to loadLevel
+        loadJSON('levels/1.json')
+            .then(function(level) {
+
+                let xStart = level.backgrounds[0].ranges[0];
+                let yStart = level.backgrounds[0].ranges[1];
+
+                for (let x = 0; x < 19; ++x) {
+                    for (let y = 0; y < 14; ++y) {
+                        sprites.drawTile('mid-mid-blue', ctx, x, y);
+                    }
+                }
+            });
     });
