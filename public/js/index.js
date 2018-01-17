@@ -19,23 +19,28 @@ function drawBackground(background, context, sprites) {
     });
 }
 
-loadImage('/images/test.png')
-    .then(img => {
-
-        const sprites = new SpriteSheet({
-            sheet: img,
-            tileWidth: TileWidth,
-            tileHeight: TileHeight
-        });
-
-        sprites.define('middle', 0, 0);
-        sprites.define('top-mid', 1, 0);
-        sprites.define('top-right', 2, 0);
-
-        loadJSON('levels/1.json')
-            .then(function(level) {
-                level.backgrounds.forEach(bk => {
-                    drawBackground(bk, ctx, sprites);
-                });
+function loadBackground() {
+    return loadImage('/images/test.png')
+        .then(img => {
+            let sprites = new SpriteSheet({
+                sheet: img,
+                tileWidth: TileWidth,
+                tileHeight: TileHeight
             });
+
+            sprites.define('middle', 0, 0);
+            sprites.define('top-mid', 1, 0);
+            sprites.define('top-right', 2, 0);
+            return sprites;
+        });
+}
+
+Promise.all([
+        loadBackground(),
+        loadJSON('levels/1.json')
+    ])
+    .then(function([sprites, level]) {
+        level.backgrounds.forEach(bk => {
+            drawBackground(bk, ctx, sprites);
+        });
     });
