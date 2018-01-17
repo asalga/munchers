@@ -9,8 +9,17 @@ import { loadImage, loadJSON } from './loaders.js';
 let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
 
+function drawBackground(background, context, sprites) {
+    background.ranges.forEach(([x1, x2, y1, y2]) => {
+        for (let x = x1; x < x2; ++x) {
+            for (let y = y1; y < y2; ++y) {
+                sprites.drawTile(background.tile, context, x, y);
+            }
+        }
+    });
+}
 
-loadImage('/images/tiles.png')
+loadImage('/images/test.png')
     .then(img => {
 
         const sprites = new SpriteSheet({
@@ -19,19 +28,14 @@ loadImage('/images/tiles.png')
             tileHeight: TileHeight
         });
 
-        sprites.define('mid-mid-blue', 4, 4);
+        sprites.define('middle', 0, 0);
+        sprites.define('top-mid', 1, 0);
+        sprites.define('top-right', 2, 0);
 
-        // rename to loadLevel
         loadJSON('levels/1.json')
             .then(function(level) {
-
-                let xStart = level.backgrounds[0].ranges[0];
-                let yStart = level.backgrounds[0].ranges[1];
-
-                for (let x = 0; x < 19; ++x) {
-                    for (let y = 0; y < 14; ++y) {
-                        sprites.drawTile('mid-mid-blue', ctx, x, y);
-                    }
-                }
+                level.backgrounds.forEach(bk => {
+                    drawBackground(bk, ctx, sprites);
+                });
             });
     });

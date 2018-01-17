@@ -1,7 +1,23 @@
 {
     "backgrounds": [
-    {
-        "tile": "middle",
-        "ranges": [0, 10, 0, 10]
-    }]
+        {
+            "tile": "middle",
+            "ranges": [
+                [0, 1, 0, 1]
+            ]
+        },
+        {
+            "tile": "top-mid",
+            "ranges": [
+                [1, 12, 0, 1]
+            ]
+        },
+        {
+            "tile": "top-right",
+            "ranges": [
+                [12, 13, 0, 1]
+            ]
+        }
+
+    ]
 }
