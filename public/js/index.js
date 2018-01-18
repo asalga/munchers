@@ -18,20 +18,19 @@ function drawBackground(background, context, sprites) {
 }
 
 function createBackgroundLayer(level, sprites) {
-    let backgroundCvs = document.createElement('canvas');
-    backgroundCvs.width = cvs.width;
-    backgroundCvs.height = cvs.height;
-    let backgroundCtx = backgroundCvs.getContext('2d');
+    let bkCvs = document.createElement('canvas');
+    [bkCvs.width,bkCvs.height] = [cvs.width,cvs.height];
+
+    let bkCtx = bkCvs.getContext('2d');
 
     level.backgrounds.forEach(bk => {
-        drawBackground(bk, backgroundCtx, sprites);
+        drawBackground(bk, bkCtx, sprites);
     });
 
     return function(ctx) {
-        ctx.drawImage(backgroundCvs, 0, 0);
+        ctx.drawImage(bkCvs, 0, 0);
     }
 }
-
 
 Promise.all([
         loadBackground(),
@@ -55,5 +54,4 @@ Promise.all([
             requestAnimationFrame(update);
         }
         update();
-
     });
