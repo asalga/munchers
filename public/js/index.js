@@ -26,28 +26,14 @@ Promise.all([
             drawBackground(bk, ctx, sprites);
         });
 
-        const pos = { x: 0, y: 0 };
+        let pos = { x: 0, y: 0 };
 
         function update() {
             pos.x += 1;
             pos.y += 1;
             muncher.draw('idle', ctx, pos.x, pos.y);
-            // console.log(update);
             requestAnimationFrame(update);
         }
         update();
-
-        // requestAnimationFrame(() => {
-        //     console.log('test');
-
-        //     muncher.draw('idle', ctx, pos.x, pos.y);
-        //     // requestAnimationFrame();
-        // });
-
-        // setInterval(() => {
-        //     update(pos);
-        //     
-
-        // }, 0.016);
 
     });
