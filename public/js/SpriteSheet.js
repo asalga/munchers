@@ -1,37 +1,34 @@
 export default class SpriteSheet {
 
-    // sheet, tilewidth, tileheight
     constructor(obj) {
         Object.assign(this, obj);
         this.tiles = new Map;
     }
 
-    define(name, xIndex, yIndex) {
+    define(name, x, y, w, h) {
         let cvs = document.createElement('canvas');
-        cvs.width = this.tileWidth;
-        cvs.height = this.tileHeight;
+        [cvs.width, cvs.height] = [w, h];
 
         let ctx = cvs.getContext('2d');
-        ctx.drawImage(this.sheet,
-            xIndex * this.tileWidth, yIndex * this.tileHeight,
-            this.tileWidth, this.tileHeight,
-            0, 0,
-            this.tileWidth, this.tileHeight);
+        ctx.drawImage(this.sheet, x, y, w, h, 0, 0, w, h);
 
         this.tiles.set(name, cvs);
     }
 
+    defineTile(name, xIndex, yIndex) {
+        this.define(name, xIndex * this.tileWidth, yIndex * this.tileHeight, this.tileWidth, this.tileHeight);
+    }
+
     draw(name, ctx, x, y) {
-        ctx.drawImage(this.tiles.get(name), x, y);
+        let tile = this.tiles.get(name);
+        try{
+            ctx.drawImage(tile, x, y);
+        }catch(e){
+            console.log(`"${name}"" has not been defined`);
+        }
     }
 
-    drawTile(name, ctx, x, y){
-    	this.draw(name, ctx, x * this.tileWidth, y * this.tileHeight);
+    drawTile(name, ctx, x, y) {
+        this.draw(name, ctx, x * this.tileWidth, y * this.tileHeight);
     }
-
-    // drawTile(ctx) {
-    // ctx.drawImage(this.img,
-    // 0, 0, this.width, this.height,
-    // 0, 0, this.width, this.height);
-    // }
 }

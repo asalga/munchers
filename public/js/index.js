@@ -1,10 +1,6 @@
-//const TileWidth = 28;
-// const TileHeight = 24;
-const TileWidth = 16;
-const TileHeight = 16;
-
 import SpriteSheet from './SpriteSheet.js';
-import { loadImage, loadJSON } from './loaders.js';
+import { loadJSON } from './loaders.js';
+import { loadMuncherSprite, loadBackground } from './sprites.js';
 
 let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
@@ -19,28 +15,39 @@ function drawBackground(background, context, sprites) {
     });
 }
 
-function loadBackground() {
-    return loadImage('/images/test.png')
-        .then(img => {
-            let sprites = new SpriteSheet({
-                sheet: img,
-                tileWidth: TileWidth,
-                tileHeight: TileHeight
-            });
-
-            sprites.define('middle', 0, 0);
-            sprites.define('top-mid', 1, 0);
-            sprites.define('top-right', 2, 0);
-            return sprites;
-        });
-}
 
 Promise.all([
         loadBackground(),
+        loadMuncherSprite(),
         loadJSON('levels/1.json')
     ])
-    .then(function([sprites, level]) {
+    .then(function([sprites, muncher, level]) {
         level.backgrounds.forEach(bk => {
             drawBackground(bk, ctx, sprites);
         });
+
+        const pos = { x: 0, y: 0 };
+
+        function update() {
+            pos.x += 1;
+            pos.y += 1;
+            muncher.draw('idle', ctx, pos.x, pos.y);
+            // console.log(update);
+            requestAnimationFrame(update);
+        }
+        update();
+
+        // requestAnimationFrame(() => {
+        //     console.log('test');
+
+        //     muncher.draw('idle', ctx, pos.x, pos.y);
+        //     // requestAnimationFrame();
+        // });
+
+        // setInterval(() => {
+        //     update(pos);
+        //     
+
+        // }, 0.016);
+
     });
