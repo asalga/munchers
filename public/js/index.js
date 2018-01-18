@@ -22,8 +22,14 @@ Promise.all([
         loadJSON('levels/1.json')
     ])
     .then(function([sprites, muncher, level]) {
+
+        let backgroundBuff = document.createElement('canvas');
+        backgroundBuff.width = cvs.width;
+        backgroundBuff.height = cvs.height;
+        let bkBuffCtx = backgroundBuff.getContext('2d');
+
         level.backgrounds.forEach(bk => {
-            drawBackground(bk, ctx, sprites);
+            drawBackground(bk, bkBuffCtx, sprites);
         });
 
         let pos = { x: 0, y: 0 };
@@ -31,6 +37,9 @@ Promise.all([
         function update() {
             pos.x += 1;
             pos.y += 1;
+
+            ctx.drawImage(backgroundBuff, 0, 0);
+
             muncher.draw('idle', ctx, pos.x, pos.y);
             requestAnimationFrame(update);
         }
