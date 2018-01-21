@@ -11,11 +11,11 @@ let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
 
 Promise.all([
-        loadBackground(),
         createMuncher(),
+        loadBackground(),
         loadJSON('levels/1.json')
     ])
-    .then(function([bkSprites, muncher, level]) {
+    .then(function([muncher, bkSprites , level]) {
 
         let delta = 0.01666;
         let gravity = 20;
@@ -30,7 +30,8 @@ Promise.all([
             muncher.vel.y += gravity * delta;
 
             compositor.draw(ctx);
-            requestAnimationFrame(update);
+            // requestAnimationFrame(update);
+            setTimeout( update, 1000/60)
         }
         update();
     });
