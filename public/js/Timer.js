@@ -1,16 +1,18 @@
 export default class Timer {
     constructor(timeStep = 1 / 60) {
-    	this.accumTime = 0;
         this.timeStep = timeStep;
+        this.lastTime = 0;
+        this.accumTime = 0;
+
 
         this.updateProxy = (time) => {
-            accumTime += (time - lastTime) / 1000;
+            this.accumTime += (time - this.lastTime) / 1000;
 
-            while (accumTime > timeStep) {
+            while (this.accumTime > timeStep) {
                 this.update(timeStep);
-                accumTime -= timeStep;
+                this.accumTime -= timeStep;
             }
-            lastTime = time;
+            this.lastTime = time;
 
             this.enqueue();
         };
