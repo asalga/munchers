@@ -13,7 +13,6 @@ export default function createMuncher() {
             muncherEntity.update = function updateEntity() {
                 this.pos.x += this.vel.x;
                 this.pos.y += this.vel.y;
-                // this.vel.y += gravity * delta;
             };
 
             muncherEntity.draw = function drawEntity(ctx) {
