@@ -8,11 +8,11 @@ export default function createMuncher() {
 
             let muncherEntity = new Entity();
             muncherEntity.pos.set(0, 180);
-            muncherEntity.vel.set(2, -10);
+            muncherEntity.vel.set(50, -400);
 
-            muncherEntity.update = function updateEntity() {
-                this.pos.x += this.vel.x;
-                this.pos.y += this.vel.y;
+            muncherEntity.update = function updateEntity(delta) {
+                this.pos.x += this.vel.x * delta;
+                this.pos.y += this.vel.y * delta;
             };
 
             muncherEntity.draw = function drawEntity(ctx) {
