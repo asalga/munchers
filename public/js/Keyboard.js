@@ -2,9 +2,13 @@ const KEY_DOWN = 1;
 const KEY_UP = 0;
 
 export default class KeyboardState {
-    constructor() {
+    constructor(el) {
         this.keyStates = new Map;
         this.keyMap = new Map;
+
+        ['keyup', 'keydown'].forEach(v => {
+            el.addEventListener(v, e => this.handleEvent(e));
+        });
     }
 
     /*
@@ -41,8 +45,8 @@ export default class KeyboardState {
         func(state);
     }
 
-    listenTo(el) {
-        el.addEventListener('keydown', e => this.handleEvent(e));
-        el.addEventListener('keyup', e => this.handleEvent(e));
-    }
+    // listenTo(el) {
+    // el.addEventListener('keydown', e => this.handleEvent(e));
+    // el.addEventListener('keyup', e => this.handleEvent(e));
+    // }
 }
