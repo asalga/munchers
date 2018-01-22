@@ -4,10 +4,12 @@ import Timer from './Timer.js';
 import { loadJSON } from './loaders.js';
 import { loadBackground } from './sprites.js';
 import { createBackgroundLayer, createSpriteLayer } from './layers.js';
-import KeyboardState from './Keyboard.js';
+import Keyboard from './KeyboardStates.js';
 
 let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
+
+let kb = new Keyboard(cvs);
 
 Promise.all([
         createMuncher(),
@@ -16,11 +18,11 @@ Promise.all([
     ])
     .then(function([muncher, bkSprites, level]) {
 
-        let kb = new KeyboardState(cvs);
-        kb.addMapping('KeyD', function(state) {
-            let vel = (state === 1) ? -140 : -30;
-            muncher.vel.set(30, vel);
+        kb.addMapping('ArrowRight', state => {
+            let vel = (state === 1) ? 100 : 0;
+            muncher.vel.set(vel, 0);
         });
+        // kb.mute(); ?
 
         let timer = new Timer(1 / 60);
         let gravity = 600;

@@ -8,7 +8,7 @@ export default function createMuncher() {
 
             let muncherEntity = new Entity();
             muncherEntity.pos.set(0, 180);
-            muncherEntity.vel.set(50, -40);
+            // muncherEntity.vel.set(0, -40);
 
             muncherEntity.update = function updateEntity(delta) {
                 this.pos.x += this.vel.x * delta;

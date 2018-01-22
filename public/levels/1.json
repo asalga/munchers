@@ -1,7 +1,7 @@
 {
     "backgrounds": [
         {
-            "tile": "middle",
+            "tile": "top-left",
             "ranges": [
                 [0, 1, 0, 1]
             ]
@@ -17,7 +17,42 @@
             "ranges": [
                 [12, 13, 0, 1]
             ]
+        },
+        {
+            "tile": "mid-left",
+            "ranges": [
+                [0, 1, 1, 13]
+            ]
+        },
+        {
+            "tile": "mid-mid",
+            "ranges": [
+                [1, 12, 1, 13]
+            ]
+        },
+        {
+            "tile": "mid-right",
+            "ranges": [
+                [12, 13, 1, 13]
+            ]
+        },
+        {
+            "tile": "bot-left",
+            "ranges": [
+                [0, 1, 13, 14]
+            ]
+        },
+        {
+            "tile": "bot-mid",
+            "ranges": [
+                [1, 12, 13, 14]
+            ]
+        },
+        {
+            "tile": "bot-right",
+            "ranges": [
+                [12, 13, 13, 14]
+            ]
         }
-
     ]
 }

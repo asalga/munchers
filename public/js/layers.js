@@ -16,6 +16,8 @@ function drawBackground(background, context, sprites) {
 
 export function createBackgroundLayer(background, sprites) {
     let bkCvs = document.createElement('canvas');
+    bkCvs.width = 320;
+    bkCvs.height = 240;
     [bkCvs.width, bkCvs.height] = [bkCvs.width, bkCvs.height];
 
     let bkCtx = bkCvs.getContext('2d');

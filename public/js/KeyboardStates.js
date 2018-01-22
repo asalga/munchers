@@ -44,9 +44,4 @@ export default class KeyboardState {
         let func = this.keyMap.get(code);
         func(state);
     }
-
-    // listenTo(el) {
-    // el.addEventListener('keydown', e => this.handleEvent(e));
-    // el.addEventListener('keyup', e => this.handleEvent(e));
-    // }
 }
