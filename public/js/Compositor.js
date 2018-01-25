@@ -4,8 +4,8 @@ export default class Compositor {
     }
 
     draw(ctx) {
-        this.layers.forEach((layer) => {
-            layer(ctx);
-        });
+        // ctx.save();
+        this.layers.forEach(layer => layer(ctx));
+        // ctx.restore();
     }
 }

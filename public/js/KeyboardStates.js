@@ -1,6 +1,9 @@
 const KEY_DOWN = 1;
 const KEY_UP = 0;
 
+
+
+// Add mute?
 export default class KeyboardState {
     constructor(el) {
         this.keyStates = new Map;

@@ -1,15 +1,13 @@
-import Compositor from './Compositor.js';
+// import Compositor from './Compositor.js';
 import createMuncher from './Entities.js';
 import Timer from './Timer.js';
 import { loadJSON } from './loaders.js';
 import { loadBackground } from './sprites.js';
-import { createBackgroundLayer, createSpriteLayer } from './layers.js';
-import Keyboard from './KeyboardStates.js';
+import { createSpriteLayer } from './layers.js';
+import { Board } from './Entity.js';
 
 let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
-
-let kb = new Keyboard(cvs);
 
 Promise.all([
         createMuncher(),
@@ -18,23 +16,16 @@ Promise.all([
     ])
     .then(function([muncher, bkSprites, level]) {
 
-        kb.addMapping('ArrowRight', state => {
-            let vel = (state === 1) ? 100 : 0;
-            muncher.vel.set(vel, 0);
-        });
-        // kb.mute(); ?
+        let board = new Board();
+        board.pos.set(10, 10);
+        board.createBackgroundLayer(level.backgrounds, bkSprites);
+        board.addChild(muncher);
 
         let timer = new Timer(1 / 60);
-        let gravity = 600;
-        let compositor = new Compositor();
-        let bkLayer = createBackgroundLayer(level.backgrounds, bkSprites);
-        let spriteLayer = createSpriteLayer(muncher);
-
-        compositor.layers.push(bkLayer, spriteLayer);
 
         timer.update = function update(dt) {
-            muncher.update(dt);
-            compositor.draw(ctx);
+            board.update(dt);
+            board.draw(ctx);
         };
 
         timer.start();
