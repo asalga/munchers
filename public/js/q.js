@@ -26,5 +26,5 @@ export function primes1() {
         });
     }
 
-    return shuffleArray(values, 10);
+    return shuffleArray(values, 100);
 }

@@ -2,8 +2,8 @@ import SpriteSheet from './SpriteSheet.js';
 import { loadImage } from './loaders.js';
 
 export function loadMuncherSprite() {
-    const TileWidth = 28*2;
-    const TileHeight = 24*2;
+    const TileWidth = 28 * 2;
+    const TileHeight = 24 * 2;
 
     return loadImage('/images/muncher.png')
         .then(img => {
@@ -14,6 +14,8 @@ export function loadMuncherSprite() {
             });
 
             sprites.define('idle', 0, 0, TileWidth, TileHeight);
+            sprites.define('openMouth', 56, 0, TileWidth, TileHeight);
+
             return sprites;
         });
 }
@@ -34,7 +36,7 @@ export function loadBackground() {
             sprites.defineTile('top-left', 0, 0);
             sprites.defineTile('top-mid', 1, 0);
             sprites.defineTile('top-right', 2, 0);
-            
+
             sprites.defineTile('mid-left', 0, 1);
             sprites.defineTile('mid-mid', 1, 1);
             sprites.defineTile('mid-right', 2, 1);

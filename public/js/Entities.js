@@ -20,24 +20,24 @@ export default function createMuncher() {
             };
 
             muncher.drawProxy = function(ctx) {
-                // Draw sprite in center of cell
-                sprite.draw('idle', ctx,
+                let val = this.board.getDataAt(this.posIndex.row, this.posIndex.col);
+                var spriteState = (val === null) ? 'idle' : 'openMouth';
+
+                sprite.draw(spriteState, ctx,
                     this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
                     this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
             };
 
             kb.mapKey('Space', state => {
-                if (state === 1) {
-                    
-                    // get value from board
-                    let val = muncher.board.getDataAt(muncher.posIndex.row,muncher.posIndex.col);
+                let val = muncher.board.getDataAt(muncher.posIndex.row, muncher.posIndex.col);
 
-                    if(val.isCorrect === false){
-                        console.log(`${val.value} - INCORRECT`);
-                    }
+                if (val === null || state === 0) { return; }
 
-                    muncher.board.eat(muncher.posIndex.row, muncher.posIndex.col);
+                if (val.isCorrect === false) {
+                    console.log(`${val.value} - INCORRECT`);
                 }
+
+                muncher.board.eat(muncher.posIndex.row, muncher.posIndex.col);
             });
 
             kb.mapKey('ArrowRight', state => {

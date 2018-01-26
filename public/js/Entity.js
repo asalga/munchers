@@ -113,22 +113,19 @@ export class Board extends Entity {
     */
     drawData(ctx) {
         ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.font = '20px monospace';
 
         for (let x = 0; x < this.numCols; ++x) {
             for (let y = 0; y < this.numCols; ++y) {
 
-
-                let data = this.tableData[y][x];
-
                 // Data may have already been eaten
-                if (data) {
-                    let textWidth = ctx.measureText(data.value).width;
+                let data = this.tableData[y][x];
+                if (data === null) { continue; }
 
-                    ctx.fillText(data.value,
-                        x * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
-                        y * this.cellHeight + this.cellHeight / 2);
-                }
-
+                let textWidth = ctx.measureText(data.value).width;
+                ctx.fillText(data.value,
+                    x * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
+                    y * this.cellHeight + this.cellHeight / 2 + 10);
             }
         }
     }

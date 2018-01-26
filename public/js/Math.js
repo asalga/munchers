@@ -8,24 +8,16 @@ export class Vec2 {
     }
 }
 
-/*
-    shitty shuffle
-*/
-export function shuffleArray(array, count) {
-
-    for (let i = 0; i < count; ++i) {
-        let first = randomInt(0, array.length - 1);
-        let second = randomInt(0, array.length - 1);
-
-        if (first === second) {
-            continue;
-        }
-
-        // swap
-        [array[first], array[second]] = [array[second], array[first]];
-
-        return array;
+/**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+export function shuffleArray(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
     }
+    return a;
 }
 
 export function sampleArray(arr) {
