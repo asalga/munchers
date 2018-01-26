@@ -8,9 +8,9 @@ export function loadMuncherSprite() {
     return loadImage('/images/muncher.png')
         .then(img => {
             let sprites = new SpriteSheet({
-                sheet: img
-                // tileWidth: TileWidth,
-                // tileHeight: TileHeight
+                sheet: img,
+                tileWidth: TileWidth,
+                tileHeight: TileHeight
             });
 
             sprites.define('idle', 0, 0, TileWidth, TileHeight);

@@ -1,29 +1,36 @@
 import createMuncher from './Entities.js';
 import Timer from './Timer.js';
 import { loadJSON } from './loaders.js';
-import { loadBackground } from './sprites.js';
-import { createSpriteLayer } from './layers.js';
 import { Board } from './Entity.js';
+import { config } from './config.js';
 
 let cvs = document.getElementById('screen');
+[cvs.width, cvs.height] = [config.gameWidth, config.gameHeight];
+
 let ctx = cvs.getContext('2d');
 
 Promise.all([
         createMuncher(),
-        loadBackground(),
+        // loadBackground(),
+        // loadData(),
         loadJSON('levels/1.json')
     ])
-    .then(function([muncher, bkSprites, level]) {
+    .then(function([muncher, level]) {
+
+        function clearBackground() {
+            ctx.fillStyle = 'rgb(0,0,120';
+            ctx.fillRect(0, 0, cvs.width, cvs.height);
+            ctx.lineWidth = 2;
+        }
 
         let board = new Board();
         muncher.board = board;
-        board.pos.set(10, 10);
-        board.createBackgroundLayer(level.backgrounds, bkSprites);
         board.addChild(muncher);
 
         let timer = new Timer(1 / 60);
 
         timer.update = function update(dt) {
+            clearBackground();
             board.update(dt);
             board.draw(ctx);
         };

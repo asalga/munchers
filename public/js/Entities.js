@@ -1,7 +1,7 @@
-import Entity from './Entity.js';
 import { Muncher } from './Entity.js';
 import { loadMuncherSprite } from './sprites.js';
 import Keyboard from './KeyboardStates.js';
+import Entity from './Entity.js';
 
 export default function createMuncher() {
 
@@ -10,27 +10,26 @@ export default function createMuncher() {
 
             let kb = new Keyboard(window);
 
-            let muncherEntity = new Muncher();
-            muncherEntity.posIndex = { row: 0, col: 0 };
-            muncherEntity.pos.set(0, 0);
+            let muncher = new Muncher();
+            muncher.posIndex = { row: 0, col: 0 };
+            muncher.pos.set(0, 0);
 
-            muncherEntity.update = function updateEntity(delta) {
+            muncher.update = function updateEntity(delta) {
                 // this.pos.x += this.vel.x * delta;
                 // this.pos.y += this.vel.y * delta;
             };
 
-            muncherEntity.drawProxy = function(ctx) {
+            muncher.drawProxy = function(ctx) {
+                // Draw sprite in center of cell
                 sprite.draw('idle', ctx,
-                    this.posIndex['col'] * this.board.cellWidth,
-                    this.posIndex['row'] * this.board.cellWidth);
-
-                // sprite.draw('idle', ctx, this.pos.x, this.pos.y);
+                    this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
+                    this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
             };
 
             kb.addMapping('ArrowRight', state => {
                 if (state === 1) {
-                    let pos = muncherEntity.posIndex;
-                    if (pos.col + 1 < muncherEntity.board.numCols) {
+                    let pos = muncher.posIndex;
+                    if (pos.col + 1 < muncher.board.numCols) {
                         pos.col++;
                     }
                 }
@@ -38,7 +37,7 @@ export default function createMuncher() {
 
             kb.addMapping('ArrowLeft', state => {
                 if (state === 1) {
-                    let pos = muncherEntity.posIndex;
+                    let pos = muncher.posIndex;
                     if (pos.col - 1 >= 0) {
                         pos.col--;
                     }
@@ -47,8 +46,8 @@ export default function createMuncher() {
 
             kb.addMapping('ArrowDown', state => {
                 if (state === 1) {
-                    let pos = muncherEntity.posIndex;
-                    if (pos.row + 1 < muncherEntity.board.numRows) {
+                    let pos = muncher.posIndex;
+                    if (pos.row + 1 < muncher.board.numRows) {
                         pos.row++;
                     }
                 }
@@ -56,13 +55,13 @@ export default function createMuncher() {
 
             kb.addMapping('ArrowUp', state => {
                 if (state === 1) {
-                    let pos = muncherEntity.posIndex;
+                    let pos = muncher.posIndex;
                     if (pos.row - 1 >= 0) {
                         pos.row--;
                     }
                 }
             });
 
-            return muncherEntity;
+            return muncher;
         });
 }

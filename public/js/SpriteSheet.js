@@ -12,7 +12,7 @@ export default class SpriteSheet {
         let ctx = cvs.getContext('2d');
         ctx.drawImage(this.sheet, x, y, w, h, 0, 0, w, h);
 
-        this.tiles.set(name, cvs);
+        this.tiles.set(name, { cvs, w, h });
     }
 
     defineTile(name, xIndex, yIndex) {
@@ -20,10 +20,10 @@ export default class SpriteSheet {
     }
 
     draw(name, ctx, x, y) {
-        let tile = this.tiles.get(name);
-        try{
+        let tile = this.tiles.get(name).cvs;
+        try {
             ctx.drawImage(tile, x, y);
-        }catch(e){
+        } catch (e) {
             console.log(`"${name}"" has not been defined`);
         }
     }

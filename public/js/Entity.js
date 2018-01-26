@@ -1,4 +1,5 @@
 import Vec2 from './Math.js';
+import { config } from './config.js';
 
 export default class Entity {
     constructor() {
@@ -43,17 +44,21 @@ export class Board extends Entity {
     constructor() {
         super();
 
-        this.gameTime = 0;
         this.numRows = 5;
         this.numCols = 5;
 
-        this.widthInPx = 200;
-        this.heightInPx = 224;
+        this.widthInPx = 500;
+        this.heightInPx = 400;
 
         this.cellWidth = this.widthInPx / this.numRows;
         this.cellHeight = this.heightInPx / this.numCols;
 
-        console.log(this.cellWidth, this.cellHeight);
+        this.pos.x = config.gameWidth / 2 - this.widthInPx / 2;
+        this.pos.y = config.gameHeight / 2 - this.heightInPx / 2;
+    }
+
+    loadQuestions(questionData) {
+        
     }
 
     createBackgroundLayer(background, sprites) {
@@ -86,7 +91,23 @@ export class Board extends Entity {
     update(deltaTime) {}
 
     drawProxy(ctx) {
-        this.drawBackgroundLayer(ctx);
+        ctx.strokeStyle = 'rgb(255, 70, 255)';
+
+        // Vertical lines
+        for (let x = 0; x <= this.widthInPx; x += this.cellWidth) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, this.heightInPx);
+            ctx.stroke();
+        }
+
+        // Horizontal lines
+        for (let y = 0; y <= this.heightInPx; y += this.cellHeight) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(this.widthInPx, y);
+            ctx.stroke();
+        }
     }
 
     draw(ctx) {
