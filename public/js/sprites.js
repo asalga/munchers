@@ -2,8 +2,8 @@ import SpriteSheet from './SpriteSheet.js';
 import { loadImage } from './loaders.js';
 
 export function loadMuncherSprite() {
-    const TileWidth = 28;
-    const TileHeight = 24;
+    const TileWidth = 28*2;
+    const TileHeight = 24*2;
 
     return loadImage('/images/muncher.png')
         .then(img => {

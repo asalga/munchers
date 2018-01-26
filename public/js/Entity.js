@@ -1,4 +1,4 @@
-import {Vec2} from './Math.js';
+import { Vec2 } from './Math.js';
 import { config } from './config.js';
 
 export default class Entity {
@@ -77,32 +77,6 @@ export class Board extends Entity {
         }
     }
 
-    createBackgroundLayer(background, sprites) {
-        function drawBackground(background, context, sprites) {
-            background.ranges.forEach(([x1, x2, y1, y2]) => {
-                for (let x = x1; x < x2; ++x) {
-                    for (let y = y1; y < y2; ++y) {
-                        sprites.drawTile(background.tile, context, x, y);
-                    }
-                }
-            });
-        }
-
-        let bkCvs = document.createElement('canvas');
-        bkCvs.width = 320;
-        bkCvs.height = 240;
-        [bkCvs.width, bkCvs.height] = [bkCvs.width, bkCvs.height];
-
-        let bkCtx = bkCvs.getContext('2d');
-
-        background.forEach(bk => {
-            drawBackground(bk, bkCtx, sprites);
-        });
-
-        this.drawBackgroundLayer = function drawBackgroundLayer(ctx) {
-            ctx.drawImage(bkCvs, 0, 0);
-        };
-    }
 
     update(deltaTime) {}
 
@@ -126,6 +100,14 @@ export class Board extends Entity {
         }
     }
 
+    getDataAt(col, row) {
+        return this.tableData[col][row];
+    }
+
+    eat(col, row) {
+        this.tableData[col][row] = null;
+    }
+
     /*
 
     */
@@ -135,12 +117,18 @@ export class Board extends Entity {
         for (let x = 0; x < this.numCols; ++x) {
             for (let y = 0; y < this.numCols; ++y) {
 
-                let value = this.tableData[y][x];
-                let textWidth = ctx.measureText(value).width;
 
-                ctx.fillText(value,
-                    x * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
-                    y * this.cellHeight + this.cellHeight / 2);
+                let data = this.tableData[y][x];
+
+                // Data may have already been eaten
+                if (data) {
+                    let textWidth = ctx.measureText(data.value).width;
+
+                    ctx.fillText(data.value,
+                        x * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
+                        y * this.cellHeight + this.cellHeight / 2);
+                }
+
             }
         }
     }

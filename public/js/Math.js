@@ -8,6 +8,9 @@ export class Vec2 {
     }
 }
 
+/*
+    shitty shuffle
+*/
 export function shuffleArray(array, count) {
 
     for (let i = 0; i < count; ++i) {
@@ -25,15 +28,10 @@ export function shuffleArray(array, count) {
     }
 }
 
+export function sampleArray(arr) {
+    return arr[randomInt(0, arr.length - 1)];
+}
 
 export function randomInt(min, max) {
     return Math.round((Math.random() * (max - min)) + min);
-}
-
-export function sampleArray(arr, cnt) {
-    var res = [];
-    for (let i = 0; i < cnt; ++i) {
-        res.push(arr[randomInt(0, arr.length - 1)]);
-    }
-    return res;
 }

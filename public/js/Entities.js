@@ -26,7 +26,21 @@ export default function createMuncher() {
                     this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
             };
 
-            kb.addMapping('ArrowRight', state => {
+            kb.mapKey('Space', state => {
+                if (state === 1) {
+                    
+                    // get value from board
+                    let val = muncher.board.getDataAt(muncher.posIndex.row,muncher.posIndex.col);
+
+                    if(val.isCorrect === false){
+                        console.log(`${val.value} - INCORRECT`);
+                    }
+
+                    muncher.board.eat(muncher.posIndex.row, muncher.posIndex.col);
+                }
+            });
+
+            kb.mapKey('ArrowRight', state => {
                 if (state === 1) {
                     let pos = muncher.posIndex;
                     if (pos.col + 1 < muncher.board.numCols) {
@@ -35,7 +49,7 @@ export default function createMuncher() {
                 }
             });
 
-            kb.addMapping('ArrowLeft', state => {
+            kb.mapKey('ArrowLeft', state => {
                 if (state === 1) {
                     let pos = muncher.posIndex;
                     if (pos.col - 1 >= 0) {
@@ -44,7 +58,7 @@ export default function createMuncher() {
                 }
             });
 
-            kb.addMapping('ArrowDown', state => {
+            kb.mapKey('ArrowDown', state => {
                 if (state === 1) {
                     let pos = muncher.posIndex;
                     if (pos.row + 1 < muncher.board.numRows) {
@@ -53,7 +67,7 @@ export default function createMuncher() {
                 }
             });
 
-            kb.addMapping('ArrowUp', state => {
+            kb.mapKey('ArrowUp', state => {
                 if (state === 1) {
                     let pos = muncher.posIndex;
                     if (pos.row - 1 >= 0) {
