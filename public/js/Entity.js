@@ -55,10 +55,18 @@ export class Board extends Entity {
 
         this.pos.x = config.gameWidth / 2 - this.widthInPx / 2;
         this.pos.y = config.gameHeight / 2 - this.heightInPx / 2;
+
+        this.tableData = [
+            [121, 2, 3, 4, 523434],
+            [126, 7, 8, 9, 10],
+            [1211, 23412, 13, 123434, 15],
+            [1216, 17, 18, 19, 20],
+            [1221, 22, 232434, 24, 25]
+        ];
     }
 
     loadQuestions(questionData) {
-        
+
     }
 
     createBackgroundLayer(background, sprites) {
@@ -108,8 +116,23 @@ export class Board extends Entity {
             ctx.lineTo(this.widthInPx, y);
             ctx.stroke();
         }
+
+        ctx.fillStyle = 'rgb(255,255,255)';
+
+        for (let x = 0; x < this.numCols; ++x) {
+            for (let y = 0; y < this.numCols; ++y) {
+
+                let value = this.tableData[y][x];
+                let textWidth = ctx.measureText(value).width;
+
+                ctx.fillText(value,
+                    x * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
+                    y * this.cellHeight + this.cellHeight / 2);
+            }
+        }
     }
 
+    //
     draw(ctx) {
         super.draw(ctx);
     }
