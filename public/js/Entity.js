@@ -42,6 +42,18 @@ export class Board extends Entity {
 
     constructor() {
         super();
+
+        this.gameTime = 0;
+        this.numRows = 5;
+        this.numCols = 5;
+
+        this.widthInPx = 200;
+        this.heightInPx = 224;
+
+        this.cellWidth = this.widthInPx / this.numRows;
+        this.cellHeight = this.heightInPx / this.numCols;
+
+        console.log(this.cellWidth, this.cellHeight);
     }
 
     createBackgroundLayer(background, sprites) {
@@ -66,17 +78,18 @@ export class Board extends Entity {
             drawBackground(bk, bkCtx, sprites);
         });
 
-        this.test = function drawBackgroundLayer(ctx) {
+        this.drawBackgroundLayer = function drawBackgroundLayer(ctx) {
             ctx.drawImage(bkCvs, 0, 0);
         };
     }
 
-    drawProxy(ctx){
-        this.test(ctx);
+    update(deltaTime) {}
+
+    drawProxy(ctx) {
+        this.drawBackgroundLayer(ctx);
     }
 
     draw(ctx) {
-        // console.log('Draw Board');
         super.draw(ctx);
     }
 }

@@ -11,6 +11,7 @@ export default function createMuncher() {
             let kb = new Keyboard(window);
 
             let muncherEntity = new Muncher();
+            muncherEntity.posIndex = { row: 0, col: 0 };
             muncherEntity.pos.set(0, 0);
 
             muncherEntity.update = function updateEntity(delta) {
@@ -19,13 +20,47 @@ export default function createMuncher() {
             };
 
             muncherEntity.drawProxy = function(ctx) {
-                sprite.draw('idle', ctx, this.pos.x, this.pos.y);
+                sprite.draw('idle', ctx,
+                    this.posIndex['col'] * this.board.cellWidth,
+                    this.posIndex['row'] * this.board.cellWidth);
+
+                // sprite.draw('idle', ctx, this.pos.x, this.pos.y);
             };
 
             kb.addMapping('ArrowRight', state => {
-                console.log('test');
-                let vel = (state === 1) ? 40 : 0;
-                muncherEntity.vel.set(vel, 0);
+                if (state === 1) {
+                    let pos = muncherEntity.posIndex;
+                    if (pos.col + 1 < muncherEntity.board.numCols) {
+                        pos.col++;
+                    }
+                }
+            });
+
+            kb.addMapping('ArrowLeft', state => {
+                if (state === 1) {
+                    let pos = muncherEntity.posIndex;
+                    if (pos.col - 1 >= 0) {
+                        pos.col--;
+                    }
+                }
+            });
+
+            kb.addMapping('ArrowDown', state => {
+                if (state === 1) {
+                    let pos = muncherEntity.posIndex;
+                    if (pos.row + 1 < muncherEntity.board.numRows) {
+                        pos.row++;
+                    }
+                }
+            });
+
+            kb.addMapping('ArrowUp', state => {
+                if (state === 1) {
+                    let pos = muncherEntity.posIndex;
+                    if (pos.row - 1 >= 0) {
+                        pos.row--;
+                    }
+                }
             });
 
             return muncherEntity;

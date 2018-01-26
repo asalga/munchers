@@ -1,8 +1,6 @@
 const KEY_DOWN = 1;
 const KEY_UP = 0;
 
-
-
 // Add mute?
 export default class KeyboardState {
     constructor(el) {
@@ -23,6 +21,7 @@ export default class KeyboardState {
     }
 
     handleEvent(e) {
+
         let { code } = e;
 
         // If we don't have a mapping for this key, we can just return
@@ -33,7 +32,7 @@ export default class KeyboardState {
         // If we have the key mapped to something, we'll need to 
         // prevent the browser default behaviour.
         e.preventDefault();
-
+ 
         let state = (e.type === 'keydown') ? KEY_DOWN : KEY_UP;
 
         // If the state hasn't changed, just ignore the event
