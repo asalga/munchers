@@ -3,6 +3,7 @@ import Timer from './Timer.js';
 import { loadJSON } from './loaders.js';
 import { Board } from './Entity.js';
 import { config } from './config.js';
+import {primes1} from './q.js';
 
 let cvs = document.getElementById('screen');
 [cvs.width, cvs.height] = [config.gameWidth, config.gameHeight];
@@ -24,6 +25,10 @@ Promise.all([
         }
 
         let board = new Board();
+        
+
+        board.loadQuestions(new primes1());
+
         muncher.board = board;
         board.addChild(muncher);
 

@@ -1,9 +1,8 @@
-import Vec2 from './Math.js';
+import {Vec2} from './Math.js';
 import { config } from './config.js';
 
 export default class Entity {
     constructor() {
-        console.log("Entity ctor");
         this.pos = new Vec2;
         this.entities = [];
     }
@@ -17,10 +16,14 @@ export default class Entity {
     }
 
     draw(ctx) {
+
+        ctx.save();
         ctx.translate(this.pos.x, this.pos.y);
+
         this.drawProxy(ctx);
         this.drawChildren(ctx);
-        ctx.translate(-this.pos.x, -this.pos.y);
+
+        ctx.restore();
     }
 
     drawChildren(ctx) {
@@ -56,17 +59,22 @@ export class Board extends Entity {
         this.pos.x = config.gameWidth / 2 - this.widthInPx / 2;
         this.pos.y = config.gameHeight / 2 - this.heightInPx / 2;
 
-        this.tableData = [
-            [121, 2, 3, 4, 523434],
-            [126, 7, 8, 9, 10],
-            [1211, 23412, 13, 123434, 15],
-            [1216, 17, 18, 19, 20],
-            [1221, 22, 232434, 24, 25]
-        ];
+        this.tableData = [];
     }
 
+    /**
+        questionData {Array}
+    */
     loadQuestions(questionData) {
+        let i = 0;
+        for (let x = 0; x < this.numCols; ++x) {
+            this.tableData.push([]);
 
+            for (let y = 0; y < this.numCols; ++y) {
+                this.tableData[x].push(questionData[i]);
+                ++i;
+            }
+        }
     }
 
     createBackgroundLayer(background, sprites) {
@@ -116,7 +124,12 @@ export class Board extends Entity {
             ctx.lineTo(this.widthInPx, y);
             ctx.stroke();
         }
+    }
 
+    /*
+
+    */
+    drawData(ctx) {
         ctx.fillStyle = 'rgb(255,255,255)';
 
         for (let x = 0; x < this.numCols; ++x) {
@@ -135,5 +148,10 @@ export class Board extends Entity {
     //
     draw(ctx) {
         super.draw(ctx);
+
+        ctx.save();
+        ctx.translate(this.pos.x, this.pos.y);
+        this.drawData(ctx);
+        ctx.restore();
     }
 }
