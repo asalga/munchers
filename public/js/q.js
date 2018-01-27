@@ -1,13 +1,18 @@
 import { Vec2, randomInt, shuffleArray, sampleArray } from './Math.js';
 
-export function primes1() {
+/*
+    cfg 
+        - Array rangeCorrect
+        - Array rangeIncorrect
+*/
+export function primes(cfg) {
     this.name = "Primes";
     this.difficulty = 1;
 
-    this.total = 25;
-    this.ratio = 0.5;
-    this.correct = [1, 3, 5, 7];
-    this.incorrect = [4, 6, 8, 10];
+    this.total = cfg.total || 25;
+    this.ratio = cfg.ratio
+    this.correct = cfg.rangeCorrect;
+    this.incorrect = cfg.rangeIncorrect
 
     let correctCount = Math.floor(this.ratio * this.total);
 
