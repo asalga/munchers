@@ -3,7 +3,13 @@ import Timer from './Timer.js';
 import { loadJSON } from './loaders.js';
 import { Board } from './Entity.js';
 import { config } from './config.js';
-import { primes } from './q.js';
+import { primes } from './questions.js';
+
+/*
+    - make import more succinct in questions.js at top of file
+    - add animation to muncher
+    - fix kb '1' magic number
+*/
 
 let cvs = document.getElementById('screen');
 [cvs.width, cvs.height] = [config.gameWidth, config.gameHeight];
@@ -24,9 +30,11 @@ Promise.all([
 
         let board = new Board();
         board.loadQuestions(new primes({
+            numValues: board.numCells,
+            difficulty: 1,
             ratio: 0.5,
-            rangeCorrect: [2,3,5,7,11],
-            rangeIncorrect: [4,6,8,10,12]
+            rangeCorrect: [2, 3, 5, 7, 11],
+            rangeIncorrect: [4, 6, 8, 10, 12]
         }));
 
         muncher.board = board;

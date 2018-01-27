@@ -48,13 +48,14 @@ export class Board extends Entity {
         super();
 
         this.numRows = 5;
-        this.numCols = 5;
+        this.numCols = 6;
+        this.numCells = this.numRows * this.numCols;
 
         this.widthInPx = 500;
-        this.heightInPx = 400;
+        this.heightInPx = 240;
 
-        this.cellWidth = this.widthInPx / this.numRows;
-        this.cellHeight = this.heightInPx / this.numCols;
+        this.cellWidth = this.widthInPx / this.numCols;
+        this.cellHeight = this.heightInPx / this.numRows;
 
         this.pos.x = config.gameWidth / 2 - this.widthInPx / 2;
         this.pos.y = config.gameHeight / 2 - this.heightInPx / 2;
@@ -66,13 +67,15 @@ export class Board extends Entity {
         questionData {Array}
     */
     loadQuestions(questionData) {
-        let i = 0;
-        for (let x = 0; x < this.numCols; ++x) {
-            this.tableData.push([]);
+        
+        for (let row = 0; row < this.numRows; ++row) {
+            this.tableData.push(new Array(this.numCols));
 
-            for (let y = 0; y < this.numCols; ++y) {
-                this.tableData[x].push(questionData[i]);
-                ++i;
+            // console.log(this.tableData, this.tableData[row]);
+            for (let col = 0; col < this.numCols; ++col) {
+                
+                this.tableData[row][col] = questionData.getNext();
+                //questionData[row * this.numRows + col];
             }
         }
     }
@@ -100,12 +103,12 @@ export class Board extends Entity {
         }
     }
 
-    getDataAt(col, row) {
-        return this.tableData[col][row];
+    getDataAt(row, col) {
+        return this.tableData[row][col];
     }
 
-    eat(col, row) {
-        this.tableData[col][row] = null;
+    eat(row, col) {
+        this.tableData[row][col] = null;
     }
 
     /*
@@ -115,17 +118,17 @@ export class Board extends Entity {
         ctx.fillStyle = 'rgb(255,255,255)';
         ctx.font = '20px monospace';
 
-        for (let x = 0; x < this.numCols; ++x) {
-            for (let y = 0; y < this.numCols; ++y) {
+        for (let row = 0; row < this.numRows; ++row) {
+            for (let col = 0; col < this.numCols; ++col) {
 
                 // Data may have already been eaten
-                let data = this.tableData[y][x];
-                if (data === null) { continue; }
+                let data = this.getDataAt(row, col);
+                if (!data) { continue; }
 
                 let textWidth = ctx.measureText(data.value).width;
                 ctx.fillText(data.value,
-                    x * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
-                    y * this.cellHeight + this.cellHeight / 2 + 10);
+                    col * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
+                    row * this.cellHeight + this.cellHeight / 2 + 10);
             }
         }
     }
