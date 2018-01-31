@@ -7,8 +7,8 @@ import { primes } from './questions.js';
 
 /*
     - make import more succinct in questions.js at top of file
-    - add animation to muncher
     - fix kb '1' magic number
+    - fix kb input
 */
 
 let cvs = document.getElementById('screen');

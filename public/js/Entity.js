@@ -59,8 +59,8 @@ export class Muncher extends Entity {
     }
 
     draw(ctx) {
-        // this.posIndex.col * this.board.cellWidth +  - sprite.tileWidth / 2,
-        ctx.translate(this.board.cellWidth / 2 - config.charWidth / 2,
+        ctx.translate(
+            this.board.cellWidth / 2 - config.charWidth / 2,
             this.board.cellHeight / 2 - config.charHeight / 2);
         super.draw(ctx);
     }
