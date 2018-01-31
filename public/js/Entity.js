@@ -1,10 +1,22 @@
 import { Vec2 } from './Math.js';
 import { config } from './config.js';
 
+export class Trait {
+    constructor(name) {
+        this.name = name;
+    }
+    update(deltaTime) {
+        console.log('unhandled update call in Trait');
+    }
+}
+
 export default class Entity {
     constructor() {
         this.pos = new Vec2;
+        this.vel = new Vec2;
+
         this.entities = [];
+        this.traits = [];
     }
 
     addChild(child) {
@@ -12,11 +24,21 @@ export default class Entity {
     }
 
     update(deltaTime) {
-        this.entities.forEach(v => v.update(deltaTime));
+        this.traits.forEach((t) => {
+            t.update(this, deltaTime);
+        });
+        this.entities.forEach(v => {
+            v.update(deltaTime);
+            v.updateProxy(deltaTime);
+        });
+    }
+
+    addTrait(trait) {
+        this.traits.push(trait);
+        this[trait.name] = trait;
     }
 
     draw(ctx) {
-
         ctx.save();
         ctx.translate(this.pos.x, this.pos.y);
 
@@ -75,8 +97,7 @@ export class Board extends Entity {
         }
     }
 
-
-    update(deltaTime) {}
+    // update(deltaTime) {}
 
     drawProxy(ctx) {
         ctx.strokeStyle = 'rgb(255, 70, 255)';
@@ -111,7 +132,7 @@ export class Board extends Entity {
     */
     drawData(ctx) {
         ctx.fillStyle = config.answerColor;
-        ctx.font = '20px monospace';
+        ctx.font = '30px monospace';
 
         for (let row = 0; row < this.numRows; ++row) {
             for (let col = 0; col < this.numCols; ++col) {

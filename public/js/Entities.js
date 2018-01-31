@@ -1,72 +1,50 @@
-import Entity from './Entity.js';
 import { Muncher } from './Entity.js';
-import { loadMuncherSprite } from './sprites.js';
 import { loadSpriteSheet } from './loaders.js';
 import Keyboard from './KeyboardStates.js';
 import { createAnim } from './anim.js';
+import Go from './Components/Go.js';
 
 export default function createMuncher() {
-    /*
-        export function loadMuncherSprite() {
-            const TileWidth = 28 * 2;
-            const TileHeight = 24 * 2;
-
-            return loadImage('/images/muncher.png')
-                .then(img => {
-                    let sprites = new SpriteSheet({
-                        sheet: img,
-                        tileWidth: TileWidth,
-                        tileHeight: TileHeight
-                    });
-
-                    sprites.define('idle', 0, 0, TileWidth, TileHeight);
-                    sprites.define('openMouth', 56, 0, TileWidth, TileHeight);
-
-                    return sprites;
-                });
-        }
-    */
 
     return loadSpriteSheet('muncher')
-        // return loadMuncherSprite()
         .then(function(sprite) {
 
             let kb = new Keyboard(window);
 
             let muncher = new Muncher();
+            muncher.addTrait(new Go());
+
             muncher.posIndex = { row: 0, col: 0 };
             muncher.pos.set(0, 0);
 
-            muncher.update = function updateEntity(delta) {
-                // this.pos.x += this.vel.x * delta;
-                // this.pos.y += this.vel.y * delta;
+            muncher.updateProxy = function updateEntity(delta) {
+                this.pos.x += this.vel.x * delta;
+                this.pos.y += this.vel.y * delta;
             };
 
-            let resolveAnim = createAnim([1, 2].map(v => 'run-' + v), 10);
+            let resolveAnim = createAnim([1, 2].map(v => 'run-' + v), 1);
 
             function routeFrame(muncherSprite) {
-                return resolveAnim(0);
+                return resolveAnim(muncher.go.distance);
             }
 
             muncher.drawProxy = function(ctx) {
                 let val = this.board.getDataAt(this.posIndex.row, this.posIndex.col);
-                var spriteState = (val === null) ? 'idle' : 'openMouth';
 
-                if (true) {
-                    sprite.draw(
-                        spriteState,
-                        ctx,
-                        this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
-                        this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
+                if (this.vel.x === 0) {
+                    var spriteState = (val === null) ? 'idle' : 'openMouth';
+                    sprite.draw(spriteState, ctx, 0, 0);
+                } else {
+
+                    // flip if walking left
+                    if (this.vel.x < 0) {
+                        ctx.scale(-1, 1);
+                        ctx.translate(-56, 0)
+                    }
+                    sprite.draw(routeFrame(this), ctx, 0, 0);
                 }
-                //
-                else {
-                    sprite.draw(
-                        routeFrame(this),
-                        ctx,
-                        this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
-                        this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
-                }
+                //         this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
+                //         this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
             };
 
             kb.mapKey('Space', state => {
@@ -82,38 +60,30 @@ export default function createMuncher() {
             });
 
             kb.mapKey('ArrowRight', state => {
-                if (state === 1) {
-                    let pos = muncher.posIndex;
-                    if (pos.col + 1 < muncher.board.numCols) {
-                        pos.col++;
-                    }
+                if (state === 1 && muncher.posIndex.col + 1 < muncher.board.numCols) {
+                    muncher.vel.x = muncher.go.WalkSpeed;
+                    muncher.go.boardColDest = muncher.posIndex.col + 1;
                 }
             });
 
             kb.mapKey('ArrowLeft', state => {
-                if (state === 1) {
-                    let pos = muncher.posIndex;
-                    if (pos.col - 1 >= 0) {
-                        pos.col--;
-                    }
+                if (state === 1 && muncher.posIndex.col - 1 > -1) {
+                    muncher.vel.x = -muncher.go.WalkSpeed;
+                    muncher.go.boardColDest = muncher.posIndex.col - 1;
                 }
             });
 
             kb.mapKey('ArrowDown', state => {
-                if (state === 1) {
-                    let pos = muncher.posIndex;
-                    if (pos.row + 1 < muncher.board.numRows) {
-                        pos.row++;
-                    }
+                if (state === 1 && muncher.posIndex.row + 1 < muncher.board.numRows) {
+                    muncher.vel.y = muncher.go.WalkSpeed;
+                    muncher.go.boardRowDest = muncher.posIndex.row + 1;
                 }
             });
 
             kb.mapKey('ArrowUp', state => {
-                if (state === 1) {
-                    let pos = muncher.posIndex;
-                    if (pos.row - 1 >= 0) {
-                        pos.row--;
-                    }
+                if (state === 1 && muncher.posIndex.row - 1 > -1) {
+                    muncher.vel.y = -muncher.go.WalkSpeed;
+                    muncher.go.boardRowDest = muncher.posIndex.row - 1;
                 }
             });
 
