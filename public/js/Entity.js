@@ -63,7 +63,6 @@ export class Muncher extends Entity {
     }
 }
 
-
 export class Board extends Entity {
 
     constructor() {
@@ -73,8 +72,8 @@ export class Board extends Entity {
         this.numCols = 6;
         this.numCells = this.numRows * this.numCols;
 
-        this.widthInPx = 500;
-        this.heightInPx = 240;
+        this.widthInPx = 600;
+        this.heightInPx = 340;
 
         this.cellWidth = this.widthInPx / this.numCols;
         this.cellHeight = this.heightInPx / this.numRows;
@@ -142,6 +141,15 @@ export class Board extends Entity {
                 if (!data) { continue; }
 
                 let textWidth = ctx.measureText(data.value).width;
+
+                // Shadow
+                ctx.fillStyle = 'rgba(0,0,0,200)';
+                ctx.fillText(data.value,
+                    col * this.cellWidth + this.cellWidth / 2 - textWidth / 2 +3,
+                    row * this.cellHeight + this.cellHeight / 2 + 10 +3);
+
+                // Text
+                ctx.fillStyle = config.answerColor;
                 ctx.fillText(data.value,
                     col * this.cellWidth + this.cellWidth / 2 - textWidth / 2,
                     row * this.cellHeight + this.cellHeight / 2 + 10);

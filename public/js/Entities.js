@@ -22,16 +22,21 @@ export default function createMuncher() {
                 this.pos.y += this.vel.y * delta;
             };
 
-            let resolveAnim = createAnim([1, 2].map(v => 'run-' + v), 1);
+            let resolveAnimHoriz = createAnim([1, 2].map(v => 'horiz-walk-' + v), 1);
+            let resolveAnimVert = createAnim([1, 2].map(v => 'vert-walk-' + v), 1);
 
             function routeFrame(muncherSprite) {
-                return resolveAnim(muncher.go.distance);
+                if (muncherSprite.vel.x !== 0) {
+                    return resolveAnimHoriz(muncher.go.distance);
+                } else if (muncherSprite.vel.y !== 0) {
+                    return resolveAnimVert(muncher.go.distance);
+                }
             }
 
             muncher.drawProxy = function(ctx) {
                 let val = this.board.getDataAt(this.posIndex.row, this.posIndex.col);
 
-                if (this.vel.x === 0) {
+                if (this.vel.x === 0 && this.vel.y === 0) {
                     var spriteState = (val === null) ? 'idle' : 'openMouth';
                     sprite.draw(spriteState, ctx, 0, 0);
                 } else {
@@ -41,10 +46,9 @@ export default function createMuncher() {
                         ctx.scale(-1, 1);
                         ctx.translate(-56, 0)
                     }
+
                     sprite.draw(routeFrame(this), ctx, 0, 0);
                 }
-                //         this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
-                //         this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
             };
 
             kb.mapKey('Space', state => {
