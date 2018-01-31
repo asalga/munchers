@@ -1,11 +1,34 @@
+import Entity from './Entity.js';
 import { Muncher } from './Entity.js';
 import { loadMuncherSprite } from './sprites.js';
+import { loadSpriteSheet } from './loaders.js';
 import Keyboard from './KeyboardStates.js';
-import Entity from './Entity.js';
+import { createAnim } from './anim.js';
 
 export default function createMuncher() {
+    /*
+        export function loadMuncherSprite() {
+            const TileWidth = 28 * 2;
+            const TileHeight = 24 * 2;
 
-    return loadMuncherSprite()
+            return loadImage('/images/muncher.png')
+                .then(img => {
+                    let sprites = new SpriteSheet({
+                        sheet: img,
+                        tileWidth: TileWidth,
+                        tileHeight: TileHeight
+                    });
+
+                    sprites.define('idle', 0, 0, TileWidth, TileHeight);
+                    sprites.define('openMouth', 56, 0, TileWidth, TileHeight);
+
+                    return sprites;
+                });
+        }
+    */
+
+    return loadSpriteSheet('muncher')
+        // return loadMuncherSprite()
         .then(function(sprite) {
 
             let kb = new Keyboard(window);
@@ -19,13 +42,31 @@ export default function createMuncher() {
                 // this.pos.y += this.vel.y * delta;
             };
 
+            let resolveAnim = createAnim([1, 2].map(v => 'run-' + v), 10);
+
+            function routeFrame(muncherSprite) {
+                return resolveAnim(0);
+            }
+
             muncher.drawProxy = function(ctx) {
                 let val = this.board.getDataAt(this.posIndex.row, this.posIndex.col);
                 var spriteState = (val === null) ? 'idle' : 'openMouth';
 
-                sprite.draw(spriteState, ctx,
-                    this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
-                    this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
+                if (true) {
+                    sprite.draw(
+                        spriteState,
+                        ctx,
+                        this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
+                        this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
+                }
+                //
+                else {
+                    sprite.draw(
+                        routeFrame(this),
+                        ctx,
+                        this.posIndex.col * this.board.cellWidth + this.board.cellWidth / 2 - sprite.tileWidth / 2,
+                        this.posIndex.row * this.board.cellHeight + this.board.cellHeight / 2 - sprite.tileHeight / 2);
+                }
             };
 
             kb.mapKey('Space', state => {

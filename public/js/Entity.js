@@ -67,15 +67,10 @@ export class Board extends Entity {
         questionData {Array}
     */
     loadQuestions(questionData) {
-        
         for (let row = 0; row < this.numRows; ++row) {
             this.tableData.push(new Array(this.numCols));
-
-            // console.log(this.tableData, this.tableData[row]);
             for (let col = 0; col < this.numCols; ++col) {
-                
                 this.tableData[row][col] = questionData.getNext();
-                //questionData[row * this.numRows + col];
             }
         }
     }
@@ -115,7 +110,7 @@ export class Board extends Entity {
 
     */
     drawData(ctx) {
-        ctx.fillStyle = 'rgb(255,255,255)';
+        ctx.fillStyle = config.answerColor;
         ctx.font = '20px monospace';
 
         for (let row = 0; row < this.numRows; ++row) {

@@ -1,0 +1,22 @@
+{
+    "imageURL": "/images/muncher.png",
+    "tileWidth": 48,
+    "tileHeight": 48,
+    "frames": [
+    {
+        "name": "idle",
+        "rect": [0, 0, 56, 48]
+    },
+    {
+        "name": "openMouth",
+        "rect": [56, 0, 56, 48]
+    },
+    {
+        "name": "run-1",
+        "rect": [0, 49, 48, 48]
+    },
+    {
+        "name": "run-2",
+        "rect": [48, 43, 16, 16]
+    }]
+}

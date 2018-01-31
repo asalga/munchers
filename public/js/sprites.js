@@ -20,31 +20,31 @@ export function loadMuncherSprite() {
         });
 }
 
-export function loadBackground() {
+// export function loadBackground() {
 
-    const TileWidth = 16;
-    const TileHeight = 16;
+//     const TileWidth = 16;
+//     const TileHeight = 16;
 
-    return loadImage('/images/test.png')
-        .then(img => {
-            let sprites = new SpriteSheet({
-                sheet: img,
-                tileWidth: TileWidth,
-                tileHeight: TileHeight
-            });
+//     return loadImage('/images/test.png')
+//         .then(img => {
+//             let sprites = new SpriteSheet({
+//                 sheet: img,
+//                 tileWidth: TileWidth,
+//                 tileHeight: TileHeight
+//             });
 
-            sprites.defineTile('top-left', 0, 0);
-            sprites.defineTile('top-mid', 1, 0);
-            sprites.defineTile('top-right', 2, 0);
+//             sprites.defineTile('top-left', 0, 0);
+//             sprites.defineTile('top-mid', 1, 0);
+//             sprites.defineTile('top-right', 2, 0);
 
-            sprites.defineTile('mid-left', 0, 1);
-            sprites.defineTile('mid-mid', 1, 1);
-            sprites.defineTile('mid-right', 2, 1);
+//             sprites.defineTile('mid-left', 0, 1);
+//             sprites.defineTile('mid-mid', 1, 1);
+//             sprites.defineTile('mid-right', 2, 1);
 
-            sprites.defineTile('bot-left', 0, 2);
-            sprites.defineTile('bot-mid', 1, 2);
-            sprites.defineTile('bot-right', 2, 2);
+//             sprites.defineTile('bot-left', 0, 2);
+//             sprites.defineTile('bot-mid', 1, 2);
+//             sprites.defineTile('bot-right', 2, 2);
 
-            return sprites;
-        });
-}
+//             return sprites;
+//         });
+// }

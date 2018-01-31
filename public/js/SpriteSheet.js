@@ -1,7 +1,10 @@
 export default class SpriteSheet {
 
-    constructor(obj) {
-        Object.assign(this, obj);
+    constructor(sheet, w, h) {
+        this.sheet = sheet;
+        this.tileWidth = w;
+        this.tileHeight = h;
+        
         this.tiles = new Map;
     }
 
@@ -21,6 +24,8 @@ export default class SpriteSheet {
 
     draw(name, ctx, x, y) {
         let tile = this.tiles.get(name).cvs;
+        console.log(name, x, y);
+
         try {
             ctx.drawImage(tile, x, y);
         } catch (e) {

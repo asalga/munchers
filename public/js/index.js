@@ -17,10 +17,9 @@ let cvs = document.getElementById('screen');
 let ctx = cvs.getContext('2d');
 
 Promise.all([
-        createMuncher(),
-        loadJSON('levels/1.json')
+        createMuncher()
     ])
-    .then(function([muncher, level]) {
+    .then(function([muncher]) {
 
         function clearBackground() {
             ctx.fillStyle = 'rgb(0, 0, 120';
