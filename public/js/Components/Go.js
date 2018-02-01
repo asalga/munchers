@@ -12,6 +12,7 @@ export default class Go extends Trait {
         const cellHeight = entity.board.cellHeight;
         const cellWidth = entity.board.cellWidth;
 
+        // TODO: rename
         function displace(col, row) {
             entity.vel.x = 0;
             entity.vel.y = 0;
@@ -21,6 +22,8 @@ export default class Go extends Trait {
 
             entity.pos.x = col * cellWidth;
             entity.pos.y = row * cellHeight;
+
+            entity.ready = true;
         }
 
         if (vel.x > 0 && entity.pos.x >= cellWidth * this.boardColDest) {

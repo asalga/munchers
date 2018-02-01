@@ -8,7 +8,6 @@ import { primes } from './questions.js';
 /*
     - make import more succinct in questions.js at top of file
     - fix kb '1' magic number
-    - fix kb input
 */
 
 let cvs = document.getElementById('screen');
@@ -19,7 +18,7 @@ let ctx = cvs.getContext('2d');
 Promise.all([
         createMuncher()
     ])
-    .then(function([muncher]) {
+    .then(([muncher]) => {
 
         function clearBackground() {
             ctx.fillStyle = 'rgb(0, 0, 120';
