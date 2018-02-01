@@ -14,14 +14,12 @@ export default class Go extends Trait {
 
         // TODO: rename
         function displace(col, row) {
-            entity.vel.x = 0;
-            entity.vel.y = 0;
+            entity.vel.set(0, 0);
 
             entity.posIndex.col = col;
             entity.posIndex.row = row;
 
-            entity.pos.x = col * cellWidth;
-            entity.pos.y = row * cellHeight;
+            entity.pos.set(col * cellWidth, row * cellHeight);
 
             entity.ready = true;
         }

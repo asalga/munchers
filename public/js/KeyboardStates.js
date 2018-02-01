@@ -30,10 +30,11 @@ export default class KeyboardState {
         let state = (e.type === 'keydown') ? KEY_DOWN : KEY_UP;
 
         // If the state hasn't changed, just ignore the event
-        if (state === this.keyStates.get(code)) {
+        if (state === 0) { //this.keyStates.get(code)) {
             return;
         }
-        this.keyStates.set(e.code, e.state);
+
+        this.keyStates.set(e.code, state);
 
         e.state = state;
 
@@ -54,10 +55,8 @@ export default class KeyboardState {
 
     handleEvent(e) {
         if (!e) { return; }
-
         // console.log('handle event ', e.code, e.state);
-
-        this.keyStates.set(e.code, e.state);
+        // this.keyStates.set(e.code, e.state);
 
         // At this point we know that we have a function mapped to the event key code
         // and the state just changed, so call the mapped function with the new state
