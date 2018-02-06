@@ -5,7 +5,10 @@ export function loadMuncherSprite() {
     const TileWidth = 28 * 2;
     const TileHeight = 24 * 2;
 
-    return loadImage('/images/muncher.png')
+    // resolve path github.io or locale
+    let path = window.location.pathname;
+
+    return loadImage(`${path}images/muncher.png`)
         .then(img => {
             let sprites = new SpriteSheet({
                 sheet: img,
