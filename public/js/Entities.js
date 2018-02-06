@@ -70,21 +70,37 @@ export default function createMuncher() {
             });
 
             kb.mapKey('ArrowRight', function(state) {
-                if (state === 1 && muncher.posIndex.col + 1 < muncher.board.numCols) {
+                if (state === 0) {
+                    return;
+                }
+
+                if (muncher.posIndex.col + 1 < muncher.board.numCols) {
                     muncher.vel.x = muncher.go.WalkSpeed;
                     muncher.go.boardColDest = muncher.posIndex.col + 1;
+                } else {
+                    muncher.ready = true;
                 }
             });
 
             kb.mapKey('ArrowLeft', state => {
-                if (state === 1 && muncher.posIndex.col - 1 > -1) {
+                if (state === 0) {
+                    return;
+                }
+
+                if (muncher.posIndex.col - 1 > -1) {
                     muncher.vel.x = -muncher.go.WalkSpeed;
                     muncher.go.boardColDest = muncher.posIndex.col - 1;
+                } else {
+                    muncher.ready = true;
                 }
             });
 
             kb.mapKey('ArrowDown', state => {
-                if (state === 1 && muncher.posIndex.row + 1 < muncher.board.numRows) {
+                if (state === 0) {
+                    return;
+                }
+
+                if (muncher.posIndex.row + 1 < muncher.board.numRows) {
                     muncher.vel.y = muncher.go.WalkSpeed;
                     muncher.go.boardRowDest = muncher.posIndex.row + 1;
                 } else {
@@ -93,7 +109,11 @@ export default function createMuncher() {
             });
 
             kb.mapKey('ArrowUp', state => {
-                if (state === 1 && muncher.posIndex.row - 1 > -1) {
+                if (state === 0) {
+                    return;
+                }
+
+                if (muncher.posIndex.row - 1 > -1) {
                     muncher.vel.y = -muncher.go.WalkSpeed;
                     muncher.go.boardRowDest = muncher.posIndex.row - 1;
                 } else {
