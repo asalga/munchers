@@ -41,9 +41,6 @@ export default function createMuncher() {
             }
 
             muncher.drawProxy = function(ctx) {
-                // ctx.fillStyle = 'rgb(255, 0, 0);';
-                // ctx.fillRect(0, 0, 40, 40);
-
                 let val = this.board.getDataAt(this.posIndex.row, this.posIndex.col);
 
                 if (this.vel.x === 0 && this.vel.y === 0) {
@@ -60,7 +57,6 @@ export default function createMuncher() {
             };
 
             kb.mapKey('Space', state => {
-                // if (state === 0) { muncher.ready = true; }
                 muncher.ready = true;
 
                 let val = muncher.board.getDataAt(muncher.posIndex.row, muncher.posIndex.col);
@@ -73,13 +69,7 @@ export default function createMuncher() {
                 muncher.board.eat(muncher.posIndex.row, muncher.posIndex.col);
             });
 
-            // map the arrow right key to the function:
-            // once the sprite is finished doing his animation,
-            // then get the next key
-            // kb.keyQueue.pop();
             kb.mapKey('ArrowRight', function(state) {
-                // if (state === 0) { muncher.ready = true; }
-
                 if (state === 1 && muncher.posIndex.col + 1 < muncher.board.numCols) {
                     muncher.vel.x = muncher.go.WalkSpeed;
                     muncher.go.boardColDest = muncher.posIndex.col + 1;
@@ -87,8 +77,6 @@ export default function createMuncher() {
             });
 
             kb.mapKey('ArrowLeft', state => {
-                // if (state === 0) { muncher.ready = true; }
-
                 if (state === 1 && muncher.posIndex.col - 1 > -1) {
                     muncher.vel.x = -muncher.go.WalkSpeed;
                     muncher.go.boardColDest = muncher.posIndex.col - 1;
@@ -96,20 +84,20 @@ export default function createMuncher() {
             });
 
             kb.mapKey('ArrowDown', state => {
-                // if (state === 0) { muncher.ready = true; }
-
                 if (state === 1 && muncher.posIndex.row + 1 < muncher.board.numRows) {
                     muncher.vel.y = muncher.go.WalkSpeed;
                     muncher.go.boardRowDest = muncher.posIndex.row + 1;
+                } else {
+                    muncher.ready = true;
                 }
             });
 
             kb.mapKey('ArrowUp', state => {
-                // if (state === 0) { muncher.ready = true; }
-
                 if (state === 1 && muncher.posIndex.row - 1 > -1) {
                     muncher.vel.y = -muncher.go.WalkSpeed;
                     muncher.go.boardRowDest = muncher.posIndex.row - 1;
+                } else {
+                    muncher.ready = true;
                 }
             });
 

@@ -99,8 +99,6 @@ export class Board extends Entity {
         }
     }
 
-    // update(deltaTime) {}
-
     drawProxy(ctx) {
         ctx.strokeStyle = 'rgb(255, 70, 255)';
 

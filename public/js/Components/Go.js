@@ -26,13 +26,17 @@ export default class Go extends Trait {
 
         if (vel.x > 0 && entity.pos.x >= cellWidth * this.boardColDest) {
             displace(this.boardColDest, entity.posIndex.row);
-        } else if (vel.x < 0 && entity.pos.x <= cellWidth * this.boardColDest) {
+        }
+        //
+        else if (vel.x < 0 && entity.pos.x <= cellWidth * this.boardColDest) {
             displace(this.boardColDest, entity.posIndex.row);
         }
 
         if (vel.y > 0 && entity.pos.y >= cellHeight * this.boardRowDest) {
             displace(entity.posIndex.col, this.boardRowDest);
-        } else if (vel.y < 0 && entity.pos.y <= cellHeight * this.boardRowDest) {
+        }
+        //
+        else if (vel.y < 0 && entity.pos.y <= cellHeight * this.boardRowDest) {
             displace(entity.posIndex.col, this.boardRowDest);
         }
 
