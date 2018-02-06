@@ -1,7 +1,7 @@
 import SpriteSheet from './SpriteSheet.js';
 
 export function loadJSON(url) {
-    console.log(`loadJSON: ${url}`);
+    // console.log(`loadJSON: ${url}`);
     return fetch(url).then(res => res.json());
 }
 
@@ -16,7 +16,7 @@ export function loadImage(url) {
 }
 
 export function loadSpriteSheet(name) {
-    console.log(`loadSpriteSheet: ${name}`);
+    // console.log(`loadSpriteSheet: ${name}`);
 
     return loadJSON(`/sprites/${name}.json`)
         .then(sheetSpec => Promise.all([
@@ -24,7 +24,6 @@ export function loadSpriteSheet(name) {
             loadImage(sheetSpec.imageURL)
         ]))
         .then(([sheetSpec, sheet]) => {
-            console.log(sheet);
 
             const sprites = new SpriteSheet(
                 sheet,
@@ -42,7 +41,6 @@ export function loadSpriteSheet(name) {
 
             if (sheetSpec.frames) {
                 sheetSpec.frames.forEach(frameSpec => {
-                	console.log(...frameSpec.rect);
                     sprites.define(frameSpec.name, ...frameSpec.rect);
                 });
             }
