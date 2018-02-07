@@ -8,5 +8,6 @@ export let config = {
 	charWidth: 56,
 	charHeight: 48,
 
-	answerColor: 'rgb(255, 255, 255)'
+	answerColor: 'rgb(255, 255, 255)',
+	backgroundColor: 'rgb(0, 0, 120'
 };

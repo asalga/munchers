@@ -7,7 +7,7 @@ export function loadMuncherSprite() {
 
     // resolve path github.io or local
     let path = window.location.pathname;
-    console.log('>>', path);
+    // console.log('>>', path);
 
     return loadImage(`${path}images/muncher.png`)
         .then(img => {

@@ -5,11 +5,6 @@ import { Board } from './Entity.js';
 import { config } from './config.js';
 import { primes } from './questions.js';
 
-/*
-    - make import more succinct in questions.js at top of file
-    - fix kb '1' magic number
-*/
-
 let cvs = document.getElementById('screen');
 [cvs.width, cvs.height] = [config.gameWidth, config.gameHeight];
 
@@ -21,7 +16,7 @@ Promise.all([
     .then(([muncher]) => {
 
         function clearBackground() {
-            ctx.fillStyle = 'rgb(0, 0, 120';
+            ctx.fillStyle = config.backgroundColor;
             ctx.fillRect(0, 0, cvs.width, cvs.height);
             ctx.lineWidth = 2;
         }
@@ -42,8 +37,11 @@ Promise.all([
 
         timer.update = function update(dt) {
             clearBackground();
+            
             board.update(dt);
             board.draw(ctx);
+
+            ui.draw(ctx);
         };
 
         timer.start();
