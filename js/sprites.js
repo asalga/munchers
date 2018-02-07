@@ -5,8 +5,9 @@ export function loadMuncherSprite() {
     const TileWidth = 28 * 2;
     const TileHeight = 24 * 2;
 
-    // resolve path github.io or locale
+    // resolve path github.io or local
     let path = window.location.pathname;
+    console.log('>>', path);
 
     return loadImage(`${path}images/muncher.png`)
         .then(img => {

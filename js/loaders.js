@@ -18,7 +18,7 @@ export function loadImage(url) {
 export function loadSpriteSheet(name) {
     console.log(`loadSpriteSheet: ${name}`);
 
-    // resolve path github.io or locale
+    // resolve path github.io or local
     let path = window.location.pathname;
 
     return loadJSON(`${path}sprites/${name}.json`)
