@@ -21,6 +21,9 @@ export function loadSpriteSheet(name) {
     // resolve path github.io or local
     let path = window.location.pathname;
 
+
+    console.log('>>>', path);
+
     return loadJSON(`${path}sprites/${name}.json`)
         .then(sheetSpec => Promise.all([
             sheetSpec,

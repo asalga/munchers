@@ -7,7 +7,8 @@ export function loadMuncherSprite() {
 
     // resolve path github.io or local
     let path = window.location.pathname;
-    // console.log('>>', path);
+    console.log('>>', path);
+    // https://asalga.github.io/munchers/images/muncher.png
 
     return loadImage(`${path}images/muncher.png`)
         .then(img => {
