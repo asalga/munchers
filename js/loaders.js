@@ -1,18 +1,11 @@
 import SpriteSheet from './SpriteSheet.js';
 
 export function loadJSON(url) {
-    console.log(`loadJSON: ${url}`);
     return fetch(url).then(res => res.json());
 }
 
 export function loadImage(url) {
-
-    let path = window.location.pathname;
-
-
-    url = path + url;
-
-
+    url = window.location.pathname + url;
     return new Promise(function(resolve) {
         let img = new Image;
         img.onload = function() {
@@ -27,8 +20,6 @@ export function loadSpriteSheet(name) {
 
     // resolve path github.io or local
     let path = window.location.pathname;
-
-    console.log('>>>', path);
 
     return loadJSON(`${path}sprites/${name}.json`)
         .then(sheetSpec => Promise.all([
