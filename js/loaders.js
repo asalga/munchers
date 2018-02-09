@@ -6,13 +6,13 @@ export function loadJSON(url) {
 }
 
 export function loadImage(url) {
-    debugger;
-      let path = window.location.pathname;
- console.log('>>>>>>', path);
 
-      url = path + url;
+    let path = window.location.pathname;
 
-   
+
+    url = path + url;
+
+
     return new Promise(function(resolve) {
         let img = new Image;
         img.onload = function() {
