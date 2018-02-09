@@ -41,7 +41,7 @@ Promise.all([
             board.update(dt);
             board.draw(ctx);
 
-            ui.draw(ctx);
+            // ui.draw(ctx);
         };
 
         timer.start();
