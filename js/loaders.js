@@ -6,6 +6,7 @@ export function loadJSON(url) {
 }
 
 export function loadImage(url) {
+    debugger;
     return new Promise(function(resolve) {
         let img = new Image;
         img.onload = function() {
@@ -20,7 +21,6 @@ export function loadSpriteSheet(name) {
 
     // resolve path github.io or local
     let path = window.location.pathname;
-
 
     console.log('>>>', path);
 
