@@ -1,4 +1,8 @@
+# Munchers
+
 clone of number munchers
+
+[play](https://asalga.github.io/munchers/)
 
 ## TODO
  - move shuffle array into Array prototype
